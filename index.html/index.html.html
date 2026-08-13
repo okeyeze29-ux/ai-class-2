@@ -1,0 +1,2533 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
+
+<title>Welcome to AI Class</title>
+
+<!-- jQuery -->
+<script src="jquery-4.0.0.min.js"></script>
+
+<style>
+
+/* =========================
+   GENERAL PAGE
+========================= */
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    min-height: 100vh;
+    transition: background-color 1s ease;
+    background-color: #ffe0b2;
+    color: #222;
+}
+
+/* =========================
+   LOBBY
+========================= */
+
+#lobby {
+    min-height: 100vh;
+    text-align: center;
+    padding: 35px 20px;
+}
+
+#lobby h1 {
+    font-family: Georgia, serif;
+    color: brown;
+    font-size: 50px;
+    margin-top: 40px;
+    margin-bottom: 10px;
+}
+
+.subtitle {
+    font-size: 20px;
+    margin-bottom: 35px;
+}
+
+.class-grid {
+    max-width: 1100px;
+    margin: auto;
+
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+
+    gap: 15px;
+}
+
+.class-button {
+    border: none;
+    padding: 20px 10px;
+
+    border-radius: 12px;
+
+    background-color: brown;
+    color: white;
+
+    font-size: 17px;
+    font-weight: bold;
+
+    cursor: pointer;
+
+    box-shadow: 0 5px 12px rgba(0,0,0,0.3);
+
+    transition: 0.3s;
+}
+
+.class-button:hover {
+    background-color: #542800;
+    transform: translateY(-5px);
+}
+
+/* =========================
+   CLASS SECTION
+========================= */
+
+#classSection {
+    display: none;
+
+    min-height: 100vh;
+
+    padding: 25px 15px;
+}
+
+.class-container {
+    max-width: 1050px;
+
+    margin: auto;
+
+    background: white;
+
+    border-radius: 20px;
+
+    padding: 30px;
+
+    box-shadow:
+        0 10px 30px rgba(0,0,0,0.3);
+}
+
+.class-container h2 {
+    text-align: center;
+
+    color: brown;
+
+    font-size: 38px;
+
+    margin-bottom: 8px;
+}
+
+.topic {
+    text-align: center;
+
+    color: #18752c;
+
+    font-size: 23px;
+
+    font-weight: bold;
+
+    margin-bottom: 30px;
+}
+
+/* =========================
+   LESSON CARDS
+========================= */
+
+.lesson-card,
+.example-card,
+.key-card,
+.summary-card,
+.exercise-card,
+.demo-card {
+
+    border-radius: 14px;
+
+    padding: 22px;
+
+    margin-bottom: 20px;
+}
+
+.lesson-card {
+    background: #f5f7fa;
+
+    border-left: 6px solid brown;
+}
+
+.example-card {
+    background: #fff5d6;
+
+    border-left: 6px solid #d49a00;
+}
+
+.key-card {
+    background: #eaf7ea;
+
+    border-left: 6px solid #2e7d32;
+}
+
+.summary-card {
+    background: #e9f3ff;
+
+    border-left: 6px solid #1976d2;
+}
+
+.demo-card {
+    background: #eef8ff;
+
+    border: 2px solid #4aa7d7;
+
+    text-align: center;
+}
+
+.exercise-card {
+    background: #f2efff;
+
+    border: 2px solid #a99ae8;
+}
+
+h3 {
+    color: brown;
+
+    margin-top: 0;
+}
+
+p,
+li {
+    font-size: 17px;
+
+    line-height: 1.7;
+}
+
+ul {
+    padding-left: 25px;
+}
+
+/* =========================
+   INTERACTIVE DEMO
+========================= */
+
+#demoText {
+    background: white;
+
+    padding: 20px;
+
+    border-radius: 10px;
+
+    margin: 15px 0;
+
+    font-weight: bold;
+}
+
+.action-button {
+
+    border: none;
+
+    padding: 12px 20px;
+
+    border-radius: 8px;
+
+    color: white;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+    margin: 5px;
+}
+
+.hide-button {
+    background: #c62828;
+}
+
+.show-button {
+    background: #2e7d32;
+}
+
+.toggle-button {
+    background: #ef8c00;
+}
+
+/* =========================
+   EXERCISE
+========================= */
+
+.option-button {
+
+    display: block;
+
+    width: 100%;
+
+    text-align: left;
+
+    background: white;
+
+    border: 1px solid #ccc;
+
+    border-radius: 9px;
+
+    padding: 14px;
+
+    margin: 9px 0;
+
+    font-size: 16px;
+
+    cursor: pointer;
+
+    transition: 0.2s;
+}
+
+.option-button:hover {
+    background: #eef5ff;
+}
+
+.option-button.correct {
+    background: #d9f4df;
+
+    border-color: green;
+}
+
+.option-button.wrong {
+    background: #ffe0e0;
+
+    border-color: red;
+}
+
+#feedback {
+    font-weight: bold;
+
+    margin-top: 15px;
+}
+
+/* =========================
+   VIDEO
+========================= */
+
+#videoArea {
+    display: none;
+
+    text-align: center;
+
+    margin-top: 25px;
+}
+
+#classVideo {
+
+    width: 100%;
+
+    max-width: 750px;
+
+    border-radius: 12px;
+
+    background: black;
+}
+
+/* =========================
+   NAVIGATION
+========================= */
+
+.navigation {
+
+    display: flex;
+
+    justify-content: center;
+
+    flex-wrap: wrap;
+
+    gap: 10px;
+
+    margin-top: 25px;
+}
+
+.nav-button {
+
+    border: none;
+
+    padding: 14px 22px;
+
+    border-radius: 9px;
+
+    color: white;
+
+    font-weight: bold;
+
+    cursor: pointer;
+}
+
+.video-button {
+    background: #1565c0;
+}
+
+.back-button {
+    background: #555;
+}
+
+.next-button {
+    background: #2e7d32;
+}
+
+.next-button.locked {
+
+    background: #999;
+
+    cursor: not-allowed;
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media(max-width:850px) {
+
+    .class-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media(max-width:550px) {
+
+    #lobby h1 {
+        font-size: 36px;
+    }
+
+    .class-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .class-container {
+        padding: 18px;
+    }
+
+    .nav-button {
+        width: 100%;
+    }
+}
+
+</style>
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     LOBBY
+===================================================== -->
+
+<section id="lobby">
+
+    <h1>WELCOME TO AI CLASS</h1>
+
+    <div class="subtitle">
+        Learn Artificial Intelligence Step by Step
+    </div>
+
+
+    <div class="class-grid">
+
+        <button class="class-button" data-class="1">
+            🎓 CLASS 1
+        </button>
+
+        <button class="class-button" data-class="2">
+            🎓 CLASS 2
+        </button>
+
+        <button class="class-button" data-class="3">
+            🎓 CLASS 3
+        </button>
+
+        <button class="class-button" data-class="4">
+            🎓 CLASS 4
+        </button>
+
+        <button class="class-button" data-class="5">
+            🎓 CLASS 5
+        </button>
+
+        <button class="class-button" data-class="6">
+            🎓 CLASS 6
+        </button>
+
+        <button class="class-button" data-class="7">
+            🎓 CLASS 7
+        </button>
+
+        <button class="class-button" data-class="8">
+            🎓 CLASS 8
+        </button>
+
+        <button class="class-button" data-class="9">
+            🎓 CLASS 9
+        </button>
+
+        <button class="class-button" data-class="10">
+            🎓 CLASS 10
+        </button>
+
+        <button class="class-button" data-class="11">
+            🎓 CLASS 11
+        </button>
+
+        <button class="class-button" data-class="12">
+            🎓 CLASS 12
+        </button>
+
+        <button class="class-button" data-class="13">
+            🎓 CLASS 13
+        </button>
+
+        <button class="class-button" data-class="14">
+            🎓 CLASS 14
+        </button>
+
+        <button class="class-button" data-class="15">
+            🎓 CLASS 15
+        </button>
+
+        <button class="class-button" data-class="16">
+            🎓 CLASS 16
+        </button>
+
+        <button class="class-button" data-class="17">
+            🎓 CLASS 17
+        </button>
+
+        <button class="class-button" data-class="18">
+            🎓 CLASS 18
+        </button>
+
+        <button class="class-button" data-class="19">
+            🎓 CLASS 19
+        </button>
+
+        <button class="class-button" data-class="20">
+            🎓 CLASS 20
+        </button>
+
+    </div>
+
+    <p style="margin-top:30px;">
+        ✦ Choose a class to begin your AI learning journey ✦
+    </p>
+
+</section>
+
+
+
+<!-- =====================================================
+     CLASS SECTION
+===================================================== -->
+
+<section id="classSection">
+
+<div class="class-container">
+
+
+    <h2 id="classTitle">
+        CLASS 1
+    </h2>
+
+
+    <div class="topic" id="topic">
+    </div>
+
+
+    <!-- LESSON -->
+
+    <div class="lesson-card">
+
+        <h3>
+            📖 Detailed Lesson
+        </h3>
+
+        <p id="lessonText">
+        </p>
+
+    </div>
+
+
+
+    <!-- KEY CONCEPTS -->
+
+    <div class="key-card">
+
+        <h3>
+            🧠 Important Things to Understand
+        </h3>
+
+        <ul id="keyPoints">
+        </ul>
+
+    </div>
+
+
+
+    <!-- REAL LIFE EXAMPLE -->
+
+    <div class="example-card">
+
+        <h3>
+            💡 Real-Life Example
+        </h3>
+
+        <p id="exampleText">
+        </p>
+
+    </div>
+
+
+
+    <!-- SUMMARY -->
+
+    <div class="summary-card">
+
+        <h3>
+            📌 Lesson Summary
+        </h3>
+
+        <p id="summaryText">
+        </p>
+
+    </div>
+
+
+
+    <!-- JQUERY DEMO -->
+
+    <div class="demo-card">
+
+        <h3>
+            🧪 Interactive Hide and Show Activity
+        </h3>
+
+        <p>
+            This activity demonstrates how a webpage can respond
+            to buttons using jQuery.
+        </p>
+
+        <div id="demoText">
+
+            AI can make a webpage interactive!
+
+        </div>
+
+        <button
+            class="action-button hide-button"
+            id="hideButton">
+
+            Hide
+
+        </button>
+
+        <button
+            class="action-button show-button"
+            id="showButton">
+
+            Show
+
+        </button>
+
+        <button
+            class="action-button toggle-button"
+            id="toggleButton">
+
+            Toggle
+
+        </button>
+
+    </div>
+
+
+
+    <!-- EXERCISE -->
+
+    <div class="exercise-card">
+
+        <h3>
+            📝 Exercise
+        </h3>
+
+        <p>
+            <strong>
+                Answer this question based on the lesson
+                you have just studied.
+            </strong>
+        </p>
+
+        <p id="question">
+        </p>
+
+        <div id="answers">
+        </div>
+
+        <div id="feedback">
+        </div>
+
+    </div>
+
+
+
+    <!-- VIDEO -->
+
+    <div id="videoArea">
+
+        <h3>
+            🎥 Class Video
+        </h3>
+
+        <video
+            id="classVideo"
+            controls>
+
+            <source
+                id="videoSource"
+                src="videos"
+                type="video/mp4">
+
+            Your browser does not support video.
+
+        </video>
+
+        <p>
+            Video for this class:
+            <strong id="videoName"></strong>
+        </p>
+
+    </div>
+
+
+
+    <!-- NAVIGATION -->
+
+    <div class="navigation">
+
+        <button
+            class="nav-button video-button"
+            id="videoButton">
+
+            🎥 Video
+
+        </button>
+
+
+        <button
+            class="nav-button back-button"
+            id="backButton">
+
+            ⬅ Back
+
+        </button>
+
+
+        <button
+            class="nav-button next-button locked"
+            id="nextButton"
+            disabled>
+
+            Next Class ➡
+
+        </button>
+
+    </div>
+
+
+    <p
+        id="lockMessage"
+        style="
+        text-align:center;
+        color:#8a5a00;
+        ">
+
+        Complete the exercise correctly
+        to unlock the next class.
+
+    </p>
+
+
+</div>
+
+</section>
+
+
+
+<script>
+
+/* =====================================================
+   LESSON DATABASE
+===================================================== */
+
+const lessons = [
+
+/* ================= CLASS 1 ================= */
+
+{
+title: "Introduction to Artificial Intelligence",
+
+topic: "Understanding what Artificial Intelligence means",
+
+lesson: `
+Artificial Intelligence, usually called AI, is a branch of
+computer science that focuses on creating computer systems
+that can perform tasks that normally require some form of
+human intelligence.
+
+Human intelligence allows people to learn from experience,
+recognize objects, understand language, solve problems,
+make decisions and identify patterns.
+
+AI attempts to create computer systems that can perform
+some of these tasks.
+
+For example, an AI system may be trained to recognize a
+picture of a cat. Another AI system may understand a spoken
+question and provide an answer.
+
+AI does not mean that a computer has become a human being.
+An AI system is a computer program or machine designed to
+perform particular tasks using algorithms, data and
+computing power.
+
+Many modern AI systems learn patterns from large amounts
+of information. These patterns can then be used to make
+predictions, classifications or recommendations.
+
+AI is used in many areas, including education, transportation,
+medicine, entertainment, communication, banking, agriculture
+and scientific research.
+`,
+
+keyPoints: [
+"AI stands for Artificial Intelligence.",
+"AI allows computers to perform certain tasks associated with human intelligence.",
+"AI can recognize patterns, process language, make predictions and solve some problems.",
+"AI systems commonly use algorithms and data.",
+"AI is already used in many everyday technologies."
+],
+
+example: `
+Imagine that you take a photograph with a modern phone.
+The phone may automatically identify faces, improve the
+picture and organize photographs.
+
+These features can involve AI because the computer is
+analyzing information and identifying patterns rather than
+simply storing the photograph.
+`,
+
+summary: `
+AI is technology that enables computers to perform certain
+tasks that normally require human intelligence. AI can use
+data and algorithms to recognize patterns, understand
+information, make predictions and assist people.
+`,
+
+question: "Which statement best describes Artificial Intelligence?",
+
+options: [
+"A computer system that can perform tasks associated with human intelligence",
+"A type of computer cable",
+"A device used only for printing"
+],
+
+answer: 0
+},
+
+
+/* ================= CLASS 2 ================= */
+
+{
+title: "Types of Artificial Intelligence",
+
+topic: "Understanding Narrow AI and General AI",
+
+lesson: `
+Artificial Intelligence can be discussed in different
+categories.
+
+One important category is Narrow AI. Narrow AI is designed
+to perform a specific task or a limited group of tasks.
+
+For example, a system designed to recognize faces is built
+for visual recognition. A recommendation system may be
+designed to suggest movies or products.
+
+These systems can be very powerful at their particular
+tasks, but they do not automatically possess every human
+ability.
+
+General AI is a theoretical idea referring to an AI system
+that could perform a very wide range of intellectual tasks
+with abilities comparable to human intelligence.
+
+Most AI applications people use today are examples of
+specialized or narrow AI.
+
+Understanding this difference is important because a system
+that performs one task extremely well should not automatically
+be considered intelligent in every possible area.
+`,
+
+keyPoints: [
+"Narrow AI is designed for specific tasks.",
+"Most AI applications currently used by people are specialized.",
+"General AI is the idea of a much broader intelligence.",
+"A system being excellent at one task does not mean it can perform every task."
+],
+
+example: `
+A voice-recognition system may be excellent at converting
+speech into text. However, that does not mean the same
+system can automatically drive a car, repair a computer
+and teach mathematics.
+`,
+
+summary: `
+Narrow AI focuses on particular tasks. General AI describes
+a theoretical form of broad intelligence capable of handling
+many different types of tasks.
+`,
+
+question: "What type of AI is designed to perform a specific task?",
+
+options: [
+"Narrow AI",
+"General AI",
+"No AI"
+],
+
+answer: 0
+},
+
+
+/* ================= CLASS 3 ================= */
+
+{
+title: "AI in Everyday Life",
+
+topic: "Recognizing AI around you",
+
+lesson: `
+Artificial Intelligence is not only something found in
+research laboratories. AI is already part of many technologies
+people use every day.
+
+Search engines can use algorithms and machine learning to
+help rank useful results.
+
+Map applications can analyze road information and traffic
+conditions to help recommend routes.
+
+Streaming services can study viewing patterns and recommend
+movies, music or other content.
+
+Email services can use automated systems to identify
+possible spam messages.
+
+Voice assistants can process spoken language and respond
+to requests.
+
+Many smartphone cameras also use computational techniques
+and AI-based systems to improve photographs.
+
+These examples show that AI can operate in the background
+without the user always noticing it.
+`,
+
+keyPoints: [
+"AI is used in many everyday digital services.",
+"Recommendation systems can suggest content.",
+"Maps can use information to recommend routes.",
+"Voice assistants can process spoken language.",
+"Spam filters can help classify unwanted messages."
+],
+
+example: `
+Suppose you watch several educational videos about
+programming. A recommendation system may notice patterns
+in your viewing activity and recommend other programming
+videos.
+
+The recommendation is produced by processing information
+and predicting what might be useful to you.
+`,
+
+summary: `
+AI is already used in search, maps, recommendations,
+communication, photography and many other technologies.
+`,
+
+question: "Which example from the lesson uses AI to process spoken requests?",
+
+options: [
+"A wooden ruler",
+"A voice assistant",
+"A notebook"
+],
+
+answer: 1
+},
+
+
+/* ================= CLASS 4 ================= */
+
+{
+title: "Data and Artificial Intelligence",
+
+topic: "Understanding the role of data in AI",
+
+lesson: `
+Data is information that can be collected, stored and
+processed by a computer.
+
+Data can take many forms. It can be numbers, words,
+photographs, videos, sounds, measurements or records.
+
+Data is extremely important to many AI systems because
+machine-learning systems often learn patterns from examples.
+
+Imagine that you want to build an AI system that recognizes
+cats.
+
+You could provide the system with many pictures and identify
+which pictures contain cats. These examples can help a
+machine-learning model learn useful visual patterns.
+
+The quality of the data is also important.
+
+If the data contains many errors, missing information or
+does not represent the situations in which the system will
+be used, the resulting AI system may perform poorly.
+
+Therefore, collecting, preparing and checking data are
+important parts of many AI projects.
+`,
+
+keyPoints: [
+"Data is information used by computer systems.",
+"Data can include text, numbers, images, audio and video.",
+"Many AI systems learn patterns from data.",
+"Poor-quality data can lead to poor results.",
+"Data should be relevant to the problem being solved."
+],
+
+example: `
+If an AI system is supposed to recognize different types
+of fruit, its training data should contain useful examples
+of those fruits.
+
+If the system only sees apples during training, it may not
+learn how to correctly recognize bananas or oranges.
+`,
+
+summary: `
+Data provides the information and examples that many AI
+systems use to learn patterns and make predictions.
+`,
+
+question: "Why is data important to many AI systems?",
+
+options: [
+"It provides examples from which useful patterns can be learned",
+"It replaces electricity",
+"It is only used to change the screen colour"
+],
+
+answer: 0
+},
+
+
+/* ================= CLASS 5 ================= */
+
+{
+title: "Machine Learning",
+
+topic: "How computers learn patterns from data",
+
+lesson: `
+Machine Learning is one of the most important approaches
+used in modern Artificial Intelligence.
+
+In traditional programming, a programmer may write explicit
+rules that tell a computer what to do.
+
+Machine learning takes a different approach.
+
+A machine-learning system can be given examples and allowed
+to learn patterns from those examples.
+
+The learning process is called training.
+
+During training, a model processes data and adjusts its
+internal parameters so that it can perform the required
+task better.
+
+After training, the model can be given new information that
+it did not see during training.
+
+It can then use the patterns it learned to produce a
+prediction or classification.
+
+For example, an email system could be trained using examples
+of spam and normal messages.
+
+After learning from those examples, it can examine a new
+message and predict whether it is likely to be spam.
+
+Machine learning is used in image recognition, recommendation
+systems, language processing, fraud detection and many
+other areas.
+`,
+
+keyPoints: [
+"Machine learning is an important part of AI.",
+"Machine learning allows computers to learn patterns from data.",
+"Training is the process of learning from examples.",
+"A trained model can make predictions about new data.",
+"Machine learning is used in many real-world applications."
+],
+
+example: `
+Suppose you show a computer thousands of photographs
+containing cats and dogs.
+
+The photographs are examples used during training.
+
+After training, the system can receive a new photograph
+and predict whether it contains a cat or a dog.
+
+The important idea is that the computer learned useful
+patterns from examples.
+`,
+
+summary: `
+Machine learning allows computers to learn patterns from
+data and use those patterns to make predictions or decisions
+about new information.
+`,
+
+question: "What is the main idea behind machine learning?",
+
+options: [
+"Learning useful patterns from data",
+"Changing the colour of a computer",
+"Replacing every computer keyboard"
+],
+
+answer: 0
+},
+
+
+/* ================= CLASS 6 ================= */
+
+{
+title: "Supervised Learning",
+
+topic: "Learning from labeled examples",
+
+lesson: `
+Supervised learning is a type of machine learning in which
+the training data contains labels or known answers.
+
+A label tells the model what the correct result is for a
+particular example.
+
+For example, suppose we have photographs labeled "cat" and
+"dog".
+
+The pictures are the inputs, while "cat" and "dog" are the
+labels.
+
+During training, the model looks for patterns that connect
+the input pictures with their labels.
+
+After training, the model can receive a new picture and
+predict which label is most appropriate.
+
+Supervised learning is commonly used for classification
+and prediction tasks.
+
+The quality of the labels is important because incorrect
+labels can teach the model incorrect relationships.
+`,
+
+keyPoints: [
+"Supervised learning uses labeled examples.",
+"A label represents a known answer or category.",
+"The model learns relationships between inputs and labels.",
+"Classification is a common supervised-learning task.",
+"Incorrect labels can affect the quality of a trained model."
+],
+
+example: `
+A teacher gives students questions together with correct
+answers.
+
+The students can compare their work with the known answers.
+
+In a similar simplified sense, supervised learning provides
+the model with examples where the desired output is known.
+`,
+
+summary: `
+Supervised learning teaches a model using examples that
+already have known labels or answers.
+`,
+
+question: "What makes training data supervised?",
+
+options: [
+"The examples contain labels or known answers",
+"The examples contain no information",
+"The computer has no training data"
+],
+
+answer: 0
+},
+
+
+/* ================= CLASS 7 ================= */
+
+{
+title: "Unsupervised Learning",
+
+topic: "Finding patterns without given labels",
+
+lesson: `
+Unsupervised learning is a machine-learning approach in
+which the training data does not come with the desired
+answers or labels.
+
+Instead of being told exactly what category each example
+belongs to, the system searches for patterns, similarities
+or structures.
+
+One common technique is clustering.
+
+Clustering attempts to place similar items into groups.
+
+For example, imagine a store has information about thousands
+of customers but has not created customer groups.
+
+An unsupervised-learning system could analyze purchasing
+patterns and identify groups of customers with similar
+behaviour.
+
+The computer is not necessarily told beforehand what the
+groups should be called.
+
+This makes unsupervised learning useful for discovering
+hidden patterns in data.
+`,
+
+keyPoints: [
+"Unsupervised learning works with unlabeled data.",
+"The system searches for patterns or structures.",
+"Clustering is a common example.",
+"The computer can group similar items.",
+"Unsupervised learning can help discover patterns that were not previously known."
+],
+
+example: `
+Imagine sorting a large box of objects without being told
+the categories.
+
+You might notice that some objects are similar in shape,
+size or colour and place them together.
+
+Clustering works in a somewhat similar way by using
+features in data to identify groups.
+`,
+
+summary: `
+Unsupervised learning helps computers discover patterns,
+similarities and groups in data without supplied labels.
+`,
+
+question: "What is a common goal of unsupervised learning?",
+
+options: [
+"Finding patterns or groups in unlabeled data",
+"Typing every answer manually",
+"Turning off a computer"
+],
+
+answer: 0
+},
+
+
+/* ================= CLASS 8 ================= */
+
+{
+title: "Reinforcement Learning",
+
+topic: "Learning through actions and feedback",
+
+lesson: `
+Reinforcement learning is a machine-learning approach
+based on interaction.
+
+An agent interacts with an environment.
+
+The agent observes the situation, takes an action and
+receives feedback.
+
+The feedback can be represented by a reward or penalty.
+
+The aim is to learn a strategy that produces better results
+over time.
+
+For example, imagine an AI system learning to play a game.
+
+If an action helps the agent achieve the goal, the system
+may receive a positive reward.
+
+If an action produces a poor result, it may receive a negative
+reward.
+
+Through repeated interaction, the system can learn which
+actions are more useful in different situations.
+
+Reinforcement learning is different from simply being given
+the correct answer for every example.
+`,
+
+keyPoints: [
+"An agent interacts with an environment.",
+"The agent takes actions.",
+"The environment provides feedback.",
+"Rewards encourage useful behaviour.",
+"Penalties can discourage poor actions."
+],
+
+example: `
+Imagine a game where an AI-controlled player receives points
+for reaching a target.
+
+After many attempts, it can learn which actions tend to
+increase its score.
+
+The feedback helps guide the learning process.
+`,
+
+summary: `
+Reinforcement learning involves learning through actions,
+interaction and feedback such as rewards and penalties.
+`,
+
+question: "What type of feedback is important in reinforcement learning?",
+
+options: [
+"Rewards and penalties",
+"Keyboard colours",
+"Screen size"
+],
+
+answer: 0
+},
+
+
+/* ================= CLASS 9 ================= */
+
+{
+title: "Algorithms",
+
+topic: "Step-by-step instructions for solving problems",
+
+lesson: `
+An algorithm is a sequence of clear steps used to solve
+a problem or complete a task.
+
+Algorithms are not limited to AI.
+
+They are used throughout computer science.
+
+For example, instructions for sorting a list of names can
+form an algorithm.
+
+An algorithm receives information, processes it according
+to its instructions and produces a result.
+
+In AI, algorithms can be used to process data, train models,
+search for solutions and make predictions.
+
+A good algorithm should have clear steps and should be
+designed for the problem it is intended to solve.
+
+Different algorithms can solve the same problem in different
+ways, and some may be more efficient than others.
+`,
+
+keyPoints: [
+"An algorithm is a sequence of steps.",
+"Algorithms can solve problems or complete tasks.",
+"Algorithms are used throughout computer science.",
+"AI systems use algorithms to process information.",
+"Different algorithms can have different levels of efficiency."
+],
+
+example: `
+A cooking recipe gives ingredients and ordered instructions.
+
+You follow Step 1, then Step 2, then Step 3 until the meal
+is complete.
+
+This is similar to the basic idea of an algorithm.
+`,
+
+summary: `
+An algorithm is a clear sequence of instructions used to
+solve a problem or complete a task.
+`,
+
+question: "What is an algorithm?",
+
+options: [
+"A sequence of steps for solving a problem",
+"A computer monitor",
+"A type of battery"
+],
+
+answer: 0
+},
+
+
+/* ================= CLASS 10 ================= */
+
+{
+title: "Neural Networks",
+
+topic: "Understanding artificial neural networks",
+
+lesson: `
+Artificial neural networks are computing models inspired
+loosely by the way networks of biological neurons process
+information.
+
+A neural network is made up of connected computational units
+that are commonly organized into layers.
+
+A simple neural network can have an input layer, one or more
+hidden layers and an output layer.
+
+The input layer receives information.
+
+The hidden layers transform the information and can learn
+useful patterns.
+
+The output layer produces the final result.
+
+During training, the network adjusts parameters called
+weights so that its predictions become more useful.
+
+Neural networks are used for many tasks, including image
+recognition, speech processing and language-related tasks.
+`,
+
+keyPoints: [
+"Neural networks contain connected computational units.",
+"They are commonly organized into layers.",
+"Input layers receive information.",
+"Hidden layers help transform information.",
+"Output layers produce results.",
+"Training adjusts the network's parameters."
+],
+
+example: `
+A neural network designed to classify pictures might receive
+numbers representing pixels as input.
+
+As the information moves through the network, different
+layers can learn useful patterns.
+
+The output could represent the predicted category.
+`,
+
+summary: `
+Neural networks are layered computing models that can learn
+patterns by adjusting their internal parameters during
+training.
+`,
+
+question: "What is one important purpose of the hidden layers in a neural network?",
+
+options: [
+"To help transform information and learn useful patterns",
+"To store electricity",
+"To replace the computer mouse"
+],
+
+answer: 0
+},
+
+
+/* ================= CLASS 11 ================= */
+
+{
+title: "Deep Learning",
+
+topic: "Learning complex patterns with many layers",
+
+lesson: `
+Deep learning is a branch of machine learning that commonly
+uses neural networks with many layers.
+
+The word "deep" refers to the use of multiple processing
+layers.
+
+Different layers can learn different levels of patterns.
+
+For example, when analyzing an image, earlier layers may
+identify simple features such as edges.
+
+Later layers can combine these features into more complex
+patterns.
+
+Eventually, the network may use these learned representations
+to classify an object.
+
+Deep learning has been especially successful in areas such
+as computer vision, speech recognition and natural language
+processing.
+
+However, deep-learning systems often require suitable data,
+computing resources and careful evaluation.
+`,
+
+keyPoints: [
+"Deep learning commonly uses many neural-network layers.",
+"Different layers can learn different representations.",
+"Deep learning is used in image and speech applications.",
+"Large amounts of suitable data can be useful.",
+"Deep-learning systems still need testing and evaluation."
+],
+
+example: `
+Imagine recognizing a bicycle in a photograph.
+
+An early layer might detect edges.
+
+Another layer might combine edges into shapes.
+
+Later layers could combine those shapes into parts such
+as wheels and a frame.
+
+The system can then use the learned representation to make
+a prediction.
+`,
+
+summary: `
+Deep learning uses multi-layer neural networks to learn
+increasingly complex patterns from data.
+`,
+
+question: "What does the word 'deep' mainly refer to in deep learning?",
+
+options: [
+"The use of multiple layers in a neural network",
+"The colour of the computer",
+"The size of the keyboard"
+],
+
+answer: 0
+},
+
+
+/* ================= CLASS 12 ================= */
+
+{
+title: "Natural Language Processing",
+
+topic: "Teaching computers to work with human language",
+
+lesson: `
+Natural Language Processing, commonly called NLP, is an
+area of AI that deals with human language.
+
+People communicate using words and sentences, but computers
+work with digital representations of information.
+
+NLP helps computer systems process and work with text and
+spoken language.
+
+NLP can be used for translation, text classification,
+search, summarization, question answering and conversational
+systems.
+
+One challenge is that human language depends heavily on
+context.
+
+The same word can have different meanings depending on
+the sentence.
+
+NLP systems therefore need methods for processing language
+and identifying useful relationships between words and
+other information.
+`,
+
+keyPoints: [
+"NLP stands for Natural Language Processing.",
+"NLP works with human language.",
+"It can process text and speech.",
+"NLP is used in translation and chat systems.",
+"Context is important when understanding language."
+],
+
+example: `
+When you type a question into an AI chatbot, the system
+must process the words in your question before it can
+generate a response.
+
+This is an example of a language-processing task.
+`,
+
+summary: `
+NLP allows AI systems to process and work with human
+language in text and speech.
+`,
+
+question: "What does Natural Language Processing focus on?",
+
+options: [
+"Processing human language",
+"Repairing computer screens",
+"Charging batteries"
+],
+
+answer: 0
+},
+
+
+/* ================= CLASS 13 ================= */
+
+{
+title: "Computer Vision",
+
+topic: "How AI understands images and video",
+
+lesson: `
+Computer vision is an area of AI concerned with processing
+and interpreting visual information.
+
+Digital images are made from pixels.
+
+A computer-vision system can analyze the information in
+those pixels and learn patterns associated with objects,
+shapes, textures and other visual features.
+
+Computer vision can be used for image classification,
+object detection, image segmentation and other tasks.
+
+For example, an image-classification system may receive
+a photograph and predict whether it contains a cat.
+
+An object-detection system may go further and identify
+where particular objects are located within an image.
+
+Computer vision is used in areas such as robotics,
+manufacturing, security, agriculture and scientific research.
+`,
+
+keyPoints: [
+"Computer vision works with visual information.",
+"Digital images contain pixels.",
+"AI can learn visual patterns.",
+"Image classification assigns categories.",
+"Object detection can identify objects and their locations."
+],
+
+example: `
+A robot moving through a room can use cameras and computer
+vision to identify objects around it.
+
+The visual information can help the robot understand part
+of its environment.
+`,
+
+summary: `
+Computer vision enables AI systems to process images and
+video and identify useful visual patterns.
+`,
+
+question: "What type of information does computer vision primarily process?",
+
+options: [
+"Images and video",
+"Only keyboard sounds",
+"Only batteries"
+],
+
+answer: 0
+},
+
+
+/* ================= CLASS 14 ================= */
+
+{
+title: "Speech Recognition",
+
+topic: "Converting spoken language into computer input",
+
+lesson: `
+Speech recognition is technology that allows computers to
+process spoken language.
+
+A microphone can capture sound.
+
+The computer processes the audio and attempts to identify
+the words being spoken.
+
+Modern speech-recognition systems can use machine learning
+to handle different speakers, accents, speeds and speaking
+conditions.
+
+The result may be text or another computer-readable
+representation.
+
+Speech recognition is often combined with Natural Language
+Processing.
+
+Speech recognition focuses on identifying the spoken words,
+while language-processing systems can help determine what
+those words mean in context.
+`,
+
+keyPoints: [
+"Speech recognition processes spoken language.",
+"Audio can be converted into text.",
+"Machine learning can improve recognition.",
+"Different voices and accents create challenges.",
+"Speech recognition can work together with NLP."
+],
+
+example: `
+When you speak a message into a phone and the phone writes
+your words as text, speech recognition is being used.
+`,
+
+summary: `
+Speech recognition allows computers to process spoken
+language and convert it into text or another usable format.
+`,
+
+question: "What does speech recognition commonly do?",
+
+options: [
+"Convert spoken language into computer-readable text or commands",
+"Print paper without input",
+"Change a monitor into a keyboard"
+],
+
+answer: 0
+},
+
+
+/* ================= CLASS 15 ================= */
+
+{
+title: "Robotics and Artificial Intelligence",
+
+topic: "Combining AI with physical machines",
+
+lesson: `
+Robotics is the field concerned with designing and building
+robots.
+
+A robot is a physical machine that can sense information,
+process information and perform actions.
+
+Robots can contain sensors that collect information about
+their environment.
+
+They can also contain motors or other mechanisms that allow
+them to move or manipulate objects.
+
+AI can be used in robotics to help robots interpret sensor
+information, recognize objects, plan actions and make
+decisions.
+
+However, not every robot uses AI.
+
+Some robots simply follow fixed instructions.
+
+AI becomes particularly useful when the robot needs to
+respond to changing situations.
+`,
+
+keyPoints: [
+"Robots are physical machines.",
+"Sensors collect information.",
+"Motors and mechanisms allow robots to act.",
+"AI can help robots understand environments.",
+"Not every robot needs AI."
+],
+
+example: `
+Imagine a robot moving through a hallway.
+
+If a sensor detects an obstacle in front of it, the robot
+can process the information and choose another direction.
+
+An AI system could help the robot make more complex decisions.
+`,
+
+summary: `
+Robotics combines physical machines, sensors and software.
+AI can help robots understand their surroundings and make
+decisions.
+`,
+
+question: "What is an important job of a robot's sensor?",
+
+options: [
+"Collect information about its surroundings",
+"Paint the robot",
+"Make paper"
+],
+
+answer: 0
+},
+
+
+/* ================= CLASS 16 ================= */
+
+{
+title: "AI Ethics",
+
+topic: "Using Artificial Intelligence responsibly",
+
+lesson: `
+AI ethics is concerned with the responsible development
+and use of Artificial Intelligence.
+
+An AI system can be technically impressive but still cause
+problems if it is designed or used irresponsibly.
+
+Important ethical issues include fairness, privacy,
+transparency, accountability and safety.
+
+Privacy is important because AI systems may process large
+amounts of information about people.
+
+Fairness matters because an AI system should not produce
+unjustified disadvantages for particular groups.
+
+Transparency means people should have appropriate information
+about how an AI system is being used.
+
+Accountability means there should be responsibility for
+important decisions and outcomes.
+
+AI ethics helps developers and users think about the impact
+of AI on individuals and society.
+`,
+
+keyPoints: [
+"AI should be developed and used responsibly.",
+"Privacy protects personal information.",
+"Fairness helps reduce unjust outcomes.",
+"Transparency helps people understand AI use.",
+"Accountability means responsibility for outcomes.",
+"Safety is an important consideration."
+],
+
+example: `
+Imagine a school uses an AI system to help organize
+information about students.
+
+The school should think carefully about who can access
+the information, how it is protected and whether the
+system could produce unfair results.
+`,
+
+summary: `
+AI ethics helps people consider fairness, privacy,
+transparency, accountability and safety when developing
+and using AI.
+`,
+
+question: "Which is an important AI ethics concern?",
+
+options: [
+"Protecting privacy and reducing unfair outcomes",
+"Making every computer brown",
+"Ignoring system mistakes"
+],
+
+answer: 0
+},
+
+
+/* ================= CLASS 17 ================= */
+
+{
+title: "AI Bias",
+
+topic: "Understanding unfair patterns in AI systems",
+
+lesson: `
+AI bias occurs when an AI system produces systematically
+unfair, inaccurate or unbalanced results.
+
+Bias can enter an AI system in several ways.
+
+For example, the training data may not represent all of
+the groups or situations that the system will encounter.
+
+Labels can also contain errors or assumptions.
+
+Design decisions can influence how the system behaves.
+
+Testing is therefore important.
+
+Developers can examine the system's performance on relevant
+groups and situations to identify problems.
+
+Reducing bias does not always have one simple solution.
+It can require better data, careful design, appropriate
+evaluation and human review.
+`,
+
+keyPoints: [
+"AI bias can produce unfair or unbalanced results.",
+"Training data can contribute to bias.",
+"Labels can contain errors.",
+"Design choices can influence results.",
+"Testing can help identify bias.",
+"Reducing bias may require several approaches."
+],
+
+example: `
+Suppose a model is trained using data that poorly represents
+a particular group of people.
+
+The model may learn patterns that work well for the groups
+well represented in the data but perform less accurately
+for the underrepresented group.
+`,
+
+summary: `
+AI bias can result from data, labels or design choices.
+Careful testing and evaluation can help identify and reduce
+unfair results.
+`,
+
+question: "Which can contribute to AI bias?",
+
+options: [
+"Biased or unrepresentative training data",
+"A clean computer screen",
+"A new keyboard"
+],
+
+answer: 0
+},
+
+
+/* ================= CLASS 18 ================= */
+
+{
+title: "AI Safety and Human Oversight",
+
+topic: "Testing AI and keeping people involved",
+
+lesson: `
+AI systems should be tested before and after they are
+deployed.
+
+Testing can reveal errors, unexpected behaviour, security
+problems and situations in which the system performs poorly.
+
+AI systems can sometimes produce incorrect results even
+when they appear confident.
+
+This is one reason human oversight can be important.
+
+Human oversight means that people remain involved in
+reviewing, controlling or supervising an AI system when
+appropriate.
+
+The amount of human involvement should depend on the
+importance and risks of the task.
+
+Systems used for low-risk tasks may require less supervision,
+while systems involved in important decisions may require
+stronger checks and review.
+`,
+
+keyPoints: [
+"AI systems should be tested.",
+"Testing can identify errors and risks.",
+"AI systems can sometimes make incorrect predictions.",
+"Human oversight can help manage important decisions.",
+"The level of supervision should match the risks."
+],
+
+example: `
+Imagine an AI system that helps a person review important
+documents.
+
+Instead of automatically accepting every result, a human
+can check important recommendations and correct mistakes.
+`,
+
+summary: `
+AI safety involves testing systems, understanding their
+limitations and using appropriate human oversight.
+`,
+
+question: "Why is testing an AI system important?",
+
+options: [
+"To find errors, risks and unexpected behaviour",
+"To make the computer heavier",
+"To remove all human involvement"
+],
+
+answer: 0
+},
+
+
+/* ================= CLASS 19 ================= */
+
+{
+title: "Building an AI Project",
+
+topic: "Planning and creating a simple AI project",
+
+lesson: `
+Building an AI project requires more than simply choosing
+an AI model.
+
+The first step is to clearly define the problem.
+
+A good problem statement explains what you want the system
+to accomplish.
+
+Next, identify the data needed for the project.
+
+The data should be relevant to the problem and should be
+prepared carefully.
+
+After that, choose an appropriate method or model.
+
+The system can then be trained or developed.
+
+Testing is extremely important because a system that works
+on training examples may not work equally well on new data.
+
+After testing, evaluate the results.
+
+If the system does not perform well, investigate the reason
+and improve the project.
+
+Documentation should also explain what the system does,
+what data was used and what limitations exist.
+`,
+
+keyPoints: [
+"Start with a clear problem.",
+"Identify appropriate data.",
+"Choose a suitable method.",
+"Build or train the system.",
+"Test using appropriate data.",
+"Evaluate and improve the result.",
+"Document the project and its limitations."
+],
+
+example: `
+Suppose you want to build an AI system that classifies
+pictures of two types of fruit.
+
+You would first define the goal, collect suitable images,
+prepare and label the data, train a model, test it with
+new images and evaluate its performance.
+`,
+
+summary: `
+A successful AI project begins with a clear problem,
+appropriate data and a suitable method, followed by
+testing, evaluation and improvement.
+`,
+
+question: "What should normally be done first when starting an AI project?",
+
+options: [
+"Define a clear problem and goal",
+"Delete all the data",
+"Skip testing"
+],
+
+answer: 0
+},
+
+
+/* ================= CLASS 20 ================= */
+
+{
+title: "AI Project Review",
+
+topic: "Putting everything you have learned together",
+
+lesson: `
+In this final class, we will connect the major ideas studied
+throughout the course.
+
+AI involves computer systems performing tasks associated
+with human intelligence.
+
+Machine learning allows systems to learn patterns from data.
+
+Supervised learning uses labeled examples.
+
+Unsupervised learning searches for patterns in unlabeled
+data.
+
+Reinforcement learning uses actions and feedback.
+
+Neural networks use connected layers to learn patterns,
+while deep learning commonly uses many layers.
+
+Natural Language Processing works with human language.
+
+Computer vision works with images and video.
+
+Speech recognition processes spoken language.
+
+Robotics combines physical machines with sensors and software.
+
+Finally, responsible AI requires attention to ethics,
+fairness, privacy, safety, bias and human oversight.
+
+A real AI project is not finished simply because a model
+produces an answer.
+
+Developers should test the system, evaluate its performance,
+identify limitations and improve it.
+
+AI development is therefore an ongoing process of learning,
+testing and improvement.
+`,
+
+keyPoints: [
+"AI involves computer systems performing intelligent tasks.",
+"Machine learning learns patterns from data.",
+"Different learning methods solve different problems.",
+"AI can work with language, images, speech and physical robots.",
+"Ethics, fairness, privacy and safety are important.",
+"AI systems should be tested and improved."
+],
+
+example: `
+Imagine you are building an AI system for recognizing
+objects.
+
+You would define the problem, collect suitable images,
+prepare the data, choose a model, train it, test it,
+evaluate the results and improve it.
+
+You would also consider whether the system is safe,
+fair and appropriate for its intended use.
+`,
+
+summary: `
+A good AI project combines technical knowledge with careful
+testing and responsible use. Building AI is a process of
+defining problems, working with data, creating systems,
+testing results and continuously improving them.
+`,
+
+question: "After testing an AI project, what should a responsible developer do?",
+
+options: [
+"Evaluate the results, identify problems and improve the system",
+"Assume every result is perfect",
+"Delete all the test results"
+],
+
+answer: 0
+}
+
+];
+
+
+/* =====================================================
+   CURRENT CLASS
+===================================================== */
+
+let currentClass = 1;
+
+let completedClasses = {};
+
+
+/* =====================================================
+   OPEN CLASS
+===================================================== */
+
+function openClass(classNumber) {
+
+    currentClass = classNumber;
+
+    const lesson = lessons[classNumber - 1];
+
+
+    $("#lobby").hide();
+
+    $("#classSection").fadeIn(400);
+
+
+    $("#classTitle").text(
+        "CLASS " + classNumber
+    );
+
+
+    $("#topic").text(
+        "Topic: " + lesson.topic
+    );
+
+
+    $("#lessonText").text(
+        lesson.lesson
+    );
+
+
+    $("#exampleText").text(
+        lesson.example
+    );
+
+
+    $("#summaryText").text(
+        lesson.summary
+    );
+
+
+    $("#keyPoints").empty();
+
+
+    lesson.keyPoints.forEach(function(point) {
+
+        $("#keyPoints").append(
+            "<li>" + point + "</li>"
+        );
+
+    });
+
+
+    $("#question").text(
+        lesson.question
+    );
+
+
+    $("#answers").empty();
+
+
+    lesson.options.forEach(function(option, index) {
+
+        $("#answers").append(
+
+            '<button class="option-button" data-answer="' +
+            index +
+            '">' +
+
+            String.fromCharCode(65 + index) +
+            ". " +
+            option +
+
+            "</button>"
+
+        );
+
+    });
+
+
+    $("#feedback").text("");
+
+
+    $("#videoArea").hide();
+
+
+    if (completedClasses[classNumber]) {
+
+        unlockNext();
+
+    }
+
+    else {
+
+        lockNext();
+
+    }
+
+}
+
+
+/* =====================================================
+   CLASS BUTTONS
+===================================================== */
+
+$(".class-button").click(function() {
+
+    const selectedClass =
+        Number($(this).data("class"));
+
+    openClass(selectedClass);
+
+});
+
+
+/* =====================================================
+   EXERCISE
+===================================================== */
+
+$(document).on(
+    "click",
+    ".option-button",
+    function() {
+
+        const selectedAnswer =
+            Number($(this).data("answer"));
+
+        const lesson =
+            lessons[currentClass - 1];
+
+
+        $(".option-button")
+            .removeClass("correct wrong");
+
+
+        if (
+            selectedAnswer ===
+            lesson.answer
+        ) {
+
+            $(this)
+                .addClass("correct");
+
+
+            completedClasses[currentClass] =
+                true;
+
+
+            $("#feedback")
+                .css("color", "green")
+                .text(
+                    "✓ Correct! Excellent work. You understood this lesson."
+                );
+
+
+            unlockNext();
+
+        }
+
+        else {
+
+            $(this)
+                .addClass("wrong");
+
+
+            $("#feedback")
+                .css("color", "red")
+                .text(
+                    "✗ Not quite. Read the lesson again and try another answer."
+                );
+
+        }
+
+    }
+);
+
+
+/* =====================================================
+   LOCK NEXT
+===================================================== */
+
+function lockNext() {
+
+    $("#nextButton")
+        .prop("disabled", true)
+        .addClass("locked");
+
+    $("#lockMessage").text(
+        "Complete the exercise correctly to unlock the next class."
+    );
+
+}
+
+
+/* =====================================================
+   UNLOCK NEXT
+===================================================== */
+
+function unlockNext() {
+
+    $("#nextButton")
+        .prop("disabled", false)
+        .removeClass("locked");
+
+    $("#lockMessage").text(
+        "✓ Exercise completed! You can go to the next class."
+    );
+
+}
+
+
+/* =====================================================
+   NEXT CLASS
+===================================================== */
+
+$("#nextButton").click(function() {
+
+    if (!completedClasses[currentClass]) {
+
+        return;
+
+    }
+
+
+    if (currentClass < 20) {
+
+        openClass(
+            currentClass + 1
+        );
+
+    }
+
+    else {
+
+        alert(
+            "🎉 CONGRATULATIONS! 🎉\n\n" +
+            "You have completed all 20 AI classes!"
+        );
+
+    }
+
+});
+
+
+/* =====================================================
+   BACK BUTTON
+===================================================== */
+
+$("#backButton").click(function() {
+
+    $("#classSection").hide();
+
+    $("#lobby").fadeIn(400);
+
+});
+
+
+/* =====================================================
+   JQUERY HIDE
+===================================================== */
+
+$("#hideButton").click(function() {
+
+    $("#demoText").hide();
+
+});
+
+
+/* =====================================================
+   JQUERY SHOW
+===================================================== */
+
+$("#showButton").click(function() {
+
+    $("#demoText").show();
+
+});
+
+
+/* =====================================================
+   JQUERY TOGGLE
+===================================================== */
+
+$("#toggleButton").click(function() {
+
+    $("#demoText").toggle();
+
+});
+
+
+/* =====================================================
+   VIDEO BUTTON
+===================================================== */
+
+$("#videoButton").click(function() {
+
+    const videoPath =
+        "videos/class" +
+        currentClass +
+        ".mp4";
+
+
+    $("#videoSource")
+        .attr("src", videoPath);
+
+
+    $("#videoName").text(
+        "Class " +
+        currentClass +
+        " Video"
+    );
+
+
+    $("#classVideo")[0].load();
+
+
+    $("#videoArea").slideToggle(400);
+
+});
+
+
+/* =====================================================
+   CHANGING BACKGROUND
+===================================================== */
+
+const backgroundColors = [
+
+    "#ffe0b2",
+    "#d7ccc8",
+    "#c8e6c9",
+    "#bbdefb",
+    "#e1bee7",
+    "#fff9c4",
+    "#ffccbc"
+
+];
+
+let backgroundIndex = 0;
+
+
+setInterval(function() {
+
+    document.body.style.backgroundColor =
+        backgroundColors[backgroundIndex];
+
+
+    backgroundIndex++;
+
+
+    if (
+        backgroundIndex >=
+        backgroundColors.length
+    ) {
+
+        backgroundIndex = 0;
+
+    }
+
+}, 3000);
+
+
+</script>
+
+</body>
+</html>
